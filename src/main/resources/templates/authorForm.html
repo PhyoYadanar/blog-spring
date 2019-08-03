@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="layout/master.html">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>Title</title>
 </head>
 <body>
+    <div layout:fragment="context" >
+        <form action="#" th:action="@{/author}" th:object="${author}" method="post">
 
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" th:field="*{name}" id="name" class="form-control">
+            <small th:if="${#fields.errors('name')}" th:error="*{name}" class="form-text text-danger"></small>
+            </div>
+            <div class="form-group">
+                <label for="dateofbirth">Date Of Birth</label>
+                <input type="date" th:field="*{dateOfBirth}" id="dateofbirth" class="form-control">
+                <small th:if="${#fields.errors('dateOfBirth')}" th:error="*{dateOfBirth}" class="form-text text-danger"></small>
+            </div>
+            <div class="form-group">
+                <label for="interested">Interested</label>
+                <input type="text" th:field="*{interested}" id="interested" class="form-control">
+                <small th:if="${#fields.errors('interested')}" th:error="*{interested}" class="form-text text-danger"></small>
+            </div>
+
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select class="form-control" name="gender" id="gender">
+                    <option th:each="gen: ${T(demo.example.blogspring.model.Gender).values()}" th:value="${gen}"
+                    th:text="${gen}"></option>
+
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+        </form>
+
+    </div>
 </body>
 </html>
